@@ -19,7 +19,6 @@ class AnimeController extends Controller
             'nombre',
             'numero_capitulos',
             'visto',
-            'fecha_visto',
             'comentarios'
         )
             ->get();
@@ -31,24 +30,21 @@ class AnimeController extends Controller
      */
     public function store(Request $request)
     {
-        //No es necesario usar trim en los valores que estás pasando al método create, ya que Laravel automáticamente elimina los espacios en blanco al principio y al final de los campos de texto durante la validación.
-        //false se representa como 0 y true como 1 en el campo visto.
+        // El campo visto solo acepta 0 para false o 1 para true.
         $request->validate([
-            'nombre' => 'required|string|max:255',
-            'numero_capitulos' => 'required|integer|min:1',
-            'visto' => 'required|boolean',
-            'fecha_visto' => 'nullable|date',
-            'comentarios' => 'nullable|string'
+            'nombre' => ['required', 'string', 'max:255'],
+            'numero_capitulos' => ['required', 'integer', 'min:1'],
+            'visto' => ['required', 'boolean'],
+            'comentarios' => ['nullable', 'string']
         ]);
 
         try {
-            $nuevoAnime = AnimeModel::create($request->only([
-                'nombre',
-                'numero_capitulos',
-                'visto',
-                'fecha_visto',
-                'comentarios'
-            ]));
+            $nuevoAnime = AnimeModel::create([
+                'nombre' => trim($request['nombre']),
+                'numero_capitulos' => trim($request['numero_capitulos']),
+                'visto' => $request['visto'],
+                'comentarios' => trim($request['comentarios'])
+            ]);
 
             return response()->json(['success' => true, 'message' => 'Se creo correctamente el nuevo Anime.', 'nuevoAnime' => $nuevoAnime], 201);
         } catch (\Exception $e) {
@@ -78,11 +74,10 @@ class AnimeController extends Controller
     {
         //
         $validatedData = $request->validate([
-            'nombre' => 'sometimes|required|string|max:255',
-            'numero_capitulos' => 'sometimes|required|integer|min:1',
-            'visto' => 'sometimes|required|boolean',
-            'fecha_visto' => 'nullable|date',
-            'comentarios' => 'nullable|string'
+            'nombre' => ['sometimes', 'required', 'string', 'max:255'],
+            'numero_capitulos' => ['sometimes', 'required', 'integer', 'min:1'],
+            'visto' => ['sometimes', 'required', 'boolean'],
+            'comentarios' => ['nullable', 'string']
         ]);
 
         try {

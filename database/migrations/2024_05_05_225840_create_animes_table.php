@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('nombre');
             $table->integer('numero_capitulos');
             $table->boolean('visto')->default(false);
-            $table->date('fecha_visto')->nullable();
             $table->text('comentarios')->nullable();
             $table->timestamps();
             // Agregar un índice al campo 'nombre'

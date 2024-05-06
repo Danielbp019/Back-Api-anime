@@ -24,7 +24,7 @@ composer install
 php artisan key:generate
 ```
 
-4. Activar las migraciones, por defecto se usa sqlite:
+4. Activar las migraciones (Asegurate de tener una db disponible), por defecto se usa sqlite:
 
 ```sh
 php artisan migrate
@@ -34,4 +34,10 @@ php artisan migrate
 
 ```sh
 php artisan serve
+```
+
+Crear de nuevo el archivo DB sqlite, ve a la carpeta database y en la consola escribir:
+
+```sh
+touch database/database.sqlite
 ```

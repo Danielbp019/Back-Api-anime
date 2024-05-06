@@ -13,7 +13,6 @@ class AnimeModel extends Model
         'nombre',
         'numero_capitulos',
         'visto',
-        'fecha_visto',
         'comentarios'
     ];
 
