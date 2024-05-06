@@ -19,6 +19,8 @@ return new class extends Migration
             $table->date('fecha_visto')->nullable();
             $table->text('comentarios')->nullable();
             $table->timestamps();
+            // Agregar un índice al campo 'nombre'
+            $table->index('nombre');
         });
     }
 
