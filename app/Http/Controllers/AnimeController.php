@@ -10,6 +10,7 @@ class AnimeController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * php artisan make:controller AnimeController --api --model=AnimeModel
      */
     public function index()
     {
@@ -19,7 +20,9 @@ class AnimeController extends Controller
             'nombre',
             'numero_capitulos',
             'visto',
-            'comentarios'
+            'comentarios',
+            'updated_at',
+            'created_at'
         )
             ->get();
         return response()->json($anime);
@@ -46,7 +49,7 @@ class AnimeController extends Controller
                 'comentarios' => trim($request['comentarios'])
             ]);
 
-            return response()->json(['success' => true, 'message' => 'Se creo correctamente el nuevo Anime.', 'nuevoAnime' => $nuevoAnime], 201);
+            return response()->json(['success' => true, 'nuevoAnime' => $nuevoAnime], 201);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }
@@ -63,7 +66,7 @@ class AnimeController extends Controller
 
             return response()->json($animeBuscar);
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Anime no encontrado.'], 404);
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 404);
         }
     }
 
@@ -86,7 +89,7 @@ class AnimeController extends Controller
             $editarAnime->fill($validatedData);
             $editarAnime->save();
 
-            return response()->json(['success' => true, 'message' => 'Se edito correctamente el Anime.', 'editarAnime' => $editarAnime], 200);
+            return response()->json(['success' => true, 'editarAnime' => $editarAnime], 200);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }
@@ -103,10 +106,8 @@ class AnimeController extends Controller
             $borrarAnime->delete();
 
             return response()->json(['success' => true, 'message' => 'Anime eliminado correctamente.'], 204);
-        } catch (ModelNotFoundException $e) {
-            return response()->json(['success' => false, 'message' => 'Anime no encontrado.'], 404);
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'Error al eliminar el Anime.'], 500);
+            return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }
     }
 }

@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('animes', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->integer('numero_capitulos');
-            $table->boolean('visto')->default(false);
-            $table->text('comentarios')->nullable();
+            $table->string('nombre')->comment('Nombre del anime en español');
+            $table->integer('numero_capitulos')->comment('Numero de capitulos');
+            $table->boolean('visto')->default(false)->comment('Si el anime terminó es 1, de lo contrario es 0');
+            $table->text('comentarios')->nullable()->comment('Expresate para que nunca lo olvides');
             $table->timestamps();
             // Agregar un índice al campo 'nombre'
             $table->index('nombre');

@@ -36,8 +36,13 @@ php artisan migrate
 php artisan serve
 ```
 
-Crear de nuevo el archivo DB sqlite, ve a la carpeta database y en la consola escribir:
-
+Notas:
+Clear the providers cache:
 ```sh
-touch database/database.sqlite
+composer dump-autoload
+```
+
+Clear All, run: 
+```sh
+php artisan optimize:clear
 ```
