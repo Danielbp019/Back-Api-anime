@@ -88,16 +88,16 @@ class AnimeController extends Controller
 
             // El metodo has verifica si un campo esta presente en la solicitud
             if ($request->has('nombre')) {
-                $editarAnime->titulo = trim($request['nombre']);
+                $editarAnime->nombre = trim($request['nombre']);
             }
             if ($request->has('numero_capitulos')) {
-                $editarAnime->cuerpo = trim($request['numero_capitulos']);
+                $editarAnime->numero_capitulos = trim($request['numero_capitulos']);
             }
             if ($request->has('visto')) {
-                $editarAnime->autor = $request['visto'];
+                $editarAnime->visto = $request['visto'];
             }
             if ($request->has('comentarios')) {
-                $editarAnime->autor = trim($request['comentarios']);
+                $editarAnime->comentarios = trim($request['comentarios']);
             }
             $editarAnime->save();
 
