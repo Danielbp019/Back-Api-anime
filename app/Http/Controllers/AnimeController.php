@@ -76,7 +76,7 @@ class AnimeController extends Controller
     public function update(Request $request, string $id)
     {
         //
-        $validatedData = $request->validate([
+        $request->validate([
             'nombre' => ['sometimes', 'required', 'string', 'max:255'],
             'numero_capitulos' => ['sometimes', 'required', 'integer', 'min:1'],
             'visto' => ['sometimes', 'required', 'boolean'],
@@ -85,8 +85,20 @@ class AnimeController extends Controller
 
         try {
             $editarAnime = AnimeModel::findOrFail($id);
-            // Verifica si el campo esta presente en la solicitud.
-            $editarAnime->fill($validatedData);
+
+            // El metodo has verifica si un campo esta presente en la solicitud
+            if ($request->has('nombre')) {
+                $editarAnime->titulo = trim($request['nombre']);
+            }
+            if ($request->has('numero_capitulos')) {
+                $editarAnime->cuerpo = trim($request['numero_capitulos']);
+            }
+            if ($request->has('visto')) {
+                $editarAnime->autor = $request['visto'];
+            }
+            if ($request->has('comentarios')) {
+                $editarAnime->autor = trim($request['comentarios']);
+            }
             $editarAnime->save();
 
             return response()->json(['success' => true, 'editarAnime' => $editarAnime], 200);
@@ -105,7 +117,7 @@ class AnimeController extends Controller
             $borrarAnime = AnimeModel::findOrFail($id);
             $borrarAnime->delete();
 
-            return response()->json(['success' => true, 'message' => 'Anime eliminado correctamente.'], 204);
+            return response()->json(['success' => true, 'message' => 'Anime eliminado correctamente.'], 200);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
         }
