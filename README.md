@@ -46,3 +46,11 @@ Clear All, run:
 ```sh
 php artisan optimize:clear
 ```
+
+Rutas: 
+```sh
+GET: http://localhost:8000/api/animes
+POST: http://localhost:8000/api/animes
+PUT: http://localhost:8000/api/animes/1/
+DELETE: http://localhost:8000/api/animes/1
+```
