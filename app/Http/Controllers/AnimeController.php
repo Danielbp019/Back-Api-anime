@@ -14,7 +14,20 @@ class AnimeController extends Controller
      */
     public function index()
     {
-        //
+        // Codigo normal.
+        /* $anime = AnimeModel::select(
+            'id',
+            'nombre',
+            'numero_capitulos',
+            'visto',
+            'comentarios',
+            'updated_at',
+            'created_at'
+        )
+            ->get();
+        return response()->json($anime); */
+
+        // Codigo como flujo de datos para respuestas largas.
         $anime = AnimeModel::select(
             'id',
             'nombre',
@@ -25,7 +38,11 @@ class AnimeController extends Controller
             'created_at'
         )
             ->get();
-        return response()->json($anime);
+        $headers = ['Content-Type' => 'application/json'];
+
+        return response()->stream(function () use ($anime) {
+            echo $anime;
+        }, 200, $headers);
     }
 
     /**
