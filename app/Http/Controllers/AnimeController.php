@@ -27,7 +27,7 @@ class AnimeController extends Controller
             ->get();
         return response()->json($anime); */
 
-        // Codigo como flujo de datos para respuestas largas.
+        // Codigo como flujo de datos para respuestas largas, puede reducir el uso de memoria en el servidor, ya que no es necesario tener todos los datos en memoria antes de comenzar a enviarlos.
         $anime = AnimeModel::select(
             'id',
             'nombre',
