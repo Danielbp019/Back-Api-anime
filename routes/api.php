@@ -11,3 +11,8 @@ use App\Http\Controllers\ExcelcsvController;
 
 Route::apiResource('animes', AnimeController::class);
 Route::apiResource('excelcsv', ExcelcsvController::class);
+
+/* Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('animes', AnimeController::class);
+    Route::apiResource('excelcsv', ExcelcsvController::class);
+}); */
