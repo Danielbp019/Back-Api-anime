@@ -14,20 +14,7 @@ class AnimeController extends Controller
      */
     public function index()
     {
-        // Codigo normal.
-        /* $anime = AnimeModel::select(
-            'id',
-            'nombre',
-            'numero_capitulos',
-            'visto',
-            'comentarios',
-            'updated_at',
-            'created_at'
-        )
-            ->get();
-        return response()->json($anime); */
-
-        // Codigo como flujo de datos para respuestas largas, puede reducir el uso de memoria en el servidor, ya que no es necesario tener todos los datos en memoria antes de comenzar a enviarlos.
+        // Select.
         $anime = AnimeModel::select(
             'id',
             'nombre',
@@ -38,11 +25,7 @@ class AnimeController extends Controller
             'created_at'
         )
             ->get();
-        $headers = ['Content-Type' => 'application/json'];
-
-        return response()->stream(function () use ($anime) {
-            echo $anime;
-        }, 200, $headers);
+        return response()->json($anime);
     }
 
     /**
