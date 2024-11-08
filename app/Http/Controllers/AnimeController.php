@@ -65,7 +65,7 @@ class AnimeController extends Controller
             $animeBuscar = AnimeModel::findOrFail($id);
 
             return response()->json($animeBuscar);
-        } catch (\Exception $e) {
+        } catch (ModelNotFoundException $e) {
             return response()->json(['success' => false, 'message' => $e->getMessage()], 404);
         }
     }

@@ -10,7 +10,7 @@ use App\Http\Controllers\ExcelcsvController;
 })->middleware('auth:sanctum'); */
 
 Route::apiResource('animes', AnimeController::class);
-Route::apiResource('excelcsv', ExcelcsvController::class);
+Route::apiResource('excelcsv', ExcelcsvController::class)->only(['store', 'show', 'destroy']);
 
 /* Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('animes', AnimeController::class);
